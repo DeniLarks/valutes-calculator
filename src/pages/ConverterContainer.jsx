@@ -12,9 +12,6 @@ const Converter = (props) => {
     // eslint-disable-next-line
   }, []);
 
-
-  const refResult = React.createRef();
-
   const handleFormValue = e => {
     e.preventDefault();
     const form = e.target;
@@ -69,7 +66,7 @@ const Converter = (props) => {
               onChange={handleSetFromDefaultValue}
             >
               {props.favoritesValues.map(fv => {
-                return(<option key={fv} value={fv}>{fv}</option>);
+                return(<option key={fv.code} value={fv.code}>{fv.code}</option>);
               })}
             </select>
         </div>
@@ -86,14 +83,12 @@ const Converter = (props) => {
             onChange={handleSetToDefaultValue}
           >
             {props.favoritesValues.map(fv => {
-              return(<option key={fv} value={fv}>{fv}</option>);
+              return(<option key={fv.code} value={fv.code}>{fv.code}</option>);
             })}
           </select>
         </div>
         <input type="submit" value="Submit"/>
       </form>
-
-      <div ref={refResult}></div>
     </div>
   );
 }
