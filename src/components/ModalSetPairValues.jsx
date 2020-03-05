@@ -95,7 +95,9 @@ export const ModalSetPairValues = (props) => {
                 </div>
                 <div className="modal__footer">
                   <button className="btn" form="form-set-values-pair">OK</button>
-                  <button className="btn" onClick={handleAddPair}>ADD</button>
+                  <button className="btn" onClick={handleAddPair}>
+                    Добавить
+                  </button>
                 </div>
             </div>
         </div>
