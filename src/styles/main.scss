@@ -194,10 +194,14 @@ $borderColor: darken($colorBackHeader, 10);
     margin-bottom: 20px;
     padding: 20px 10px;
     background-color: whitesmoke;
+    min-height: 110px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 
     .titles {
       font-size: 13px;
-      
+      margin-bottom: 15px;
     }
   }
 }
