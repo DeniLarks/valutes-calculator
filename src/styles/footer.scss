@@ -1,0 +1,16 @@
+@import './variables.scss';
+
+.footer {
+  padding: 10px 10px 20px 10px;
+  background-color: $colorBackFooter;
+
+  a {
+    color: $colorLink;
+    opacity: 0.7;
+    transition: all 0.5s ease-in-out;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}

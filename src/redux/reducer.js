@@ -13,6 +13,7 @@ const SET_VALUES_PAIRS = 'SET_VALUES_PAIRS';
 const ADD_VALUES_PAIR = 'ADD_VALUES_PAIR';
 const DELETE_VALUE_PAIR = 'DELETE_VALUE_PAIR';
 const SET_QUOTATION_VALUES_PAIR = 'GET_QUOTATION_VALUES_PAIRS';
+const SET_QUOTATIONS_NULL = 'SET_QUOTATIONS_NULL';
 
 
 const LS_FAVORITES_VALUES = 'LS_FAVORITES_VALUES';
@@ -35,6 +36,9 @@ const initialState = {
 
 export const reducer = (state = initialState, action) => {
   switch(action.type) {
+    case SET_QUOTATIONS_NULL: return {
+      ...state, quotationPairs: []
+    }
     case SET_QUOTATION_VALUES_PAIR: return {
       ...state, 
       quotationPairs: {
@@ -43,9 +47,18 @@ export const reducer = (state = initialState, action) => {
       }
     }
     case SET_VALUES_PAIRS: return {...state, valuesPairs: action.payload}
-    case DELETE_VALUE_PAIR: return {
-      ...state, 
-      valuesPairs: state.valuesPairs.filter(el => el.id !== action.payload)}
+    case DELETE_VALUE_PAIR: 
+      // const keys = Object.keys(state.quotationPairs);
+      // const newKeys = keys.filter(k => k !== action.payload);
+      // let newQuotationsPair = {};
+      // newKeys.forEach(key => {
+      //   newQuotationsPair[key] = state.quotationPairs[key]
+      // });
+
+      return {
+        ...state,
+        // quotationPairs: newQuotationsPair,
+        valuesPairs: state.valuesPairs.filter(el => el.id !== action.payload)}
     case ADD_VALUES_PAIR: 
       if(state.valuesPairs.some(el => el.id === action.payload.id)) {
         alert('Уже есть такая пара')
@@ -95,7 +108,13 @@ const actionSetOneQuotation = (idPair, quotation) => {
   }
 }
 
+const actionSetQuotationsNull = () => {
+  return { type: SET_QUOTATIONS_NULL }
+}
+
 export const thunkGetQuotationValuePairs = valuesPairs => dispatch => {
+  dispatch(actionSetQuotationsNull());
+
   valuesPairs.forEach(pair => {
     apiValutes.getRatio(pair.pair[0].code, pair.pair[1].code, 1)
       .then(response => {
@@ -146,11 +165,29 @@ export const thunkSetDefaultToValue = newValue => dispatch => {
   dispatch(actionSetDefaultToValue(newValue));
 }
 
-export const actionSetValueFromAmount = newAmount => {
+const actionSetValueFromAmount = newAmount => {
   return {
     type: SET_VALUE_FROM_AMOUNT,
     payload: newAmount
   }
+}
+
+export const setValueFromAmount = newAmount => dispatch => {
+  const chars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'];
+  newAmount = newAmount.replace(',', '.');
+  let lastChar = newAmount.charAt(newAmount.length - 1);
+  if(chars.includes(lastChar)) {
+    if(lastChar === '.') {
+      const matchs = newAmount.match(/\./g);
+      if(matchs.length > 1) newAmount = newAmount.substring(0, newAmount.length - 1);
+    } 
+    else newAmount = parseFloat(newAmount);
+  } else {
+    alert('Не допустимый символ')
+    newAmount = newAmount.substring(0, newAmount.length - 1);
+  }
+  
+  dispatch(actionSetValueFromAmount(newAmount));
 }
 
 

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { FullPreloader } from '../components/FullPreloader';
 import { bindActionCreators } from 'redux';
-import { thunkSetValuesList, actionSetValueFromAmount, thunkSetFavoritesValues, actionSetFavoriteModal, thunkSetDefaultFromValue, thunkSetDefaultToValue } from '../redux/reducer';
+import { thunkSetValuesList, setValueFromAmount, thunkSetFavoritesValues, actionSetFavoriteModal, thunkSetDefaultFromValue, thunkSetDefaultToValue } from '../redux/reducer';
 import { ModalFavoritesValues } from '../components/ModalFavoritesValues';
 import { apiValutes } from '../api/apiValutes';
 
@@ -27,18 +27,19 @@ const Converter = (props) => {
   }
 
   const handleChangeAmountFrom = e => {
-    props.actionSetValueFromAmount(e.target.value);
+    props.thunkSetValueFromAmount(e.target.value);
   }
 
   const handleSetFromDefaultValue = e => {
     props.thunkSetDefaultFromValue(e.target.value);
   }
+
   const handleSetToDefaultValue = e => {
     props.thunkSetDefaultToValue(e.target.value);
   }
 
   return(
-    <div>
+    <div className="form-convert-container">
       {props.isLoadAllValue && <FullPreloader /> }
       {props.isFavoriteModal && 
         <ModalFavoritesValues 
@@ -50,14 +51,17 @@ const Converter = (props) => {
           thunkSetDefaultToValue={props.thunkSetDefaultToValue}
         /> 
       }
-      Converter page
-      <button onClick={handleBtnEditFavoritesValues}>Редактировать интересующие валюты</button>
+      <button className="btn btn-converter" onClick={handleBtnEditFavoritesValues}>
+        Редактировать интересующие валюты
+      </button>
+      
       <form onSubmit={handleFormValue}>
-        <div>
+        <div className="form_input-container">
           <input 
             type="text" 
             name="amount" 
             value={props.valueFromAmount}
+            autoComplete="off"
             onChange={handleChangeAmountFrom}
           />
             <select 
@@ -71,7 +75,8 @@ const Converter = (props) => {
             </select>
         </div>
 
-        <div>
+        
+        <div className="form_input-container">
           <input 
             type="text" 
             name="amountTo"
@@ -87,7 +92,7 @@ const Converter = (props) => {
             })}
           </select>
         </div>
-        <input type="submit" value="Submit"/>
+        <input className="btn btn-converter" type="submit" value="Посчитать"/>
       </form>
     </div>
   );
@@ -110,7 +115,7 @@ const mapDispatchToProps = dispatch => {
     thunkSetValuesList: bindActionCreators(thunkSetValuesList, dispatch),
     thunkSetFavoritesValues: bindActionCreators(thunkSetFavoritesValues, dispatch),
     actionSetFavoriteModal: bindActionCreators(actionSetFavoriteModal, dispatch),
-    actionSetValueFromAmount: bindActionCreators(actionSetValueFromAmount, dispatch),
+    thunkSetValueFromAmount: bindActionCreators(setValueFromAmount, dispatch),
     thunkSetDefaultFromValue: bindActionCreators(thunkSetDefaultFromValue, dispatch),
     thunkSetDefaultToValue: bindActionCreators(thunkSetDefaultToValue, dispatch)
   }

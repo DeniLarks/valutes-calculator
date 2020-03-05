@@ -3,11 +3,19 @@ import { NavLink } from 'react-router-dom';
 
 export const Navbar = () => {
   return(
-    <nav>
-      <div>
-        <NavLink to="/">Конвертер</NavLink>
-        <NavLink to="/pairs">Все пары</NavLink>
-      </div>
-    </nav>
+    <div className="container">
+      <nav className="navbar">
+        <NavLink 
+          activeClassName="navbar__link--active" 
+          to="/" className="navbar__link"
+          exact
+        >Конвертер</NavLink>
+        <NavLink 
+          activeClassName="navbar__link--active" 
+          to="/pairs" 
+          className="navbar__link"
+        >Валютные пары</NavLink>
+      </nav>
+    </div>
   );
 }

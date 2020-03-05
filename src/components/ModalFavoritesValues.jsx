@@ -23,34 +23,36 @@ export const ModalFavoritesValues = (props) => {
     
     return (
         <div className="modal">
-            <div className="modal--favorite-values">
-                <div className="modal__header">
-                    <h2>Чтобы пользоваться конвертером добавьте интересующие валюты</h2>
+            <div className="modal-value modal--favorite-values">
+                {/* <div className="container"> */}
+                    <div className="modal__header">
+                        <h2>Чтобы пользоваться конвертером добавьте интересующие валюты</h2>
+                    </div>
+                    <div className="modal__content">
+                        <form className="container" id="change-favorite-values" onSubmit={handlerSubmit}>
+                            {props.valuesList.map(el => {
+                                return (
+                                    <div className="value-item" key={el.code}>
+                                        <input
+                                            name="favorites" 
+                                            id={el.code} 
+                                            type="checkbox"
+                                            defaultChecked={props.favoritesValues.some(fel => el.code === fel.code)} 
+                                            value={el.code}
+                                            data-title={el.title} 
+                                        />
+                                        <label 
+                                            htmlFor={el.code}
+                                        >{el.code} &nbsp; {el.title}</label>
+                                    </div>
+                                )
+                            })}
+                        </form>
+                    </div>
+                    <div className="modal__footer">
+                    <button className="btn" form="change-favorite-values">OK</button>
                 </div>
-                <div className="modal__content">
-                    <form id="change-favorite-values" onSubmit={handlerSubmit}>
-                        {props.valuesList.map(el => {
-                            return (
-                                <div key={el.code}>
-                                    <input
-                                        name="favorites" 
-                                        id={el.code} 
-                                        type="checkbox"
-                                        defaultChecked={props.favoritesValues.some(fel => el.code === fel.code)} 
-                                        value={el.code}
-                                        data-title={el.title} 
-                                    />
-                                    <label 
-                                        htmlFor={el.code}
-                                    >{el.code} &nbsp; {el.title}</label>
-                                </div>
-                            )
-                        })}
-                    </form>
-                </div>
-                <div className="modal__footer">
-                    <button form="change-favorite-values">OK</button>
-                </div>
+                {/* </div> */}
             </div>
         </div>
     )

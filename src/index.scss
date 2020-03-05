@@ -1,3 +1,10 @@
+@import './styles/variables.scss';
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -7,42 +14,96 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
 #form-set-values-pair {
   display: flex;
 }
+
 .modal {
   position: fixed;
+  z-index: 100;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rebeccapurple;
-  
-  &--preloader {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+  .modal-value {
+    background-color: lighten($colorBackHeader, 10);
   }
 
-  &--favorite-values {
-    .modal {
-      &__header {
-        height: 10vh;
-      }
-      &__content {
-        height: 80vh;
-        overflow: auto;
-      }
-      &__footer {
-        height: 10vh;
-      }
+  &--preloader {
+    position: absolute;
+    top: 7px;
+    right: 10px;
+
+    .preloader-img {
+      height: 40px;
     }
-    
   }
 }
+
+.container {
+  padding: 0 10px;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.btn {
+  background-color: #4E7FB5;
+  color: #c8d4e0;
+  text-transform: lowercase;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  padding: 5px 10px;
+  margin: 0 5px;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background-color: #1f3349;
+    color: #e9f4ff;
+  }
+
+  &--delete {
+    padding: 1px 6px;
+    background-color: #b54e4e;
+
+    &:hover {
+      background-color: #632323;
+    }
+  }
+
+}
+
+.small-preloader {
+  height: 20px;
+}
+
+#root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  $h: 4%;
+  $f: 4%;
+  $c: 90%;
+
+  .header {
+    height: $h;
+  }
+
+  .main {
+    height: $c;
+  }
+
+  .footer {
+    height: $f;
+  }
+}
+
+@import './styles/header.scss';
+@import './styles/main.scss';
+@import './styles/footer.scss'

@@ -1,0 +1,36 @@
+@import './variables.scss';
+
+.header {
+  padding: 15px;
+  background-color: $colorBackHeader;
+}
+.navbar {
+  display: flex;
+
+  &__link {
+    color: $colorLink;
+    text-decoration: none;
+    margin: 0 10px;
+    opacity: 0.7;
+    text-transform: uppercase;
+    transition: all 0.5s ease-in-out;
+
+    &:hover {
+      opacity: 0.9;
+    }
+
+    &--active {
+      opacity: 1;
+      position: relative;
+
+      &::after {
+        position: absolute;
+        transform: translateX(-50%) rotate(90deg);
+        left: 50%;
+        content: '>';
+        top: 70%;
+        font-weight: bold;
+      }
+    }
+  }
+}

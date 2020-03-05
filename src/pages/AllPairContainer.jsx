@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { FullPreloader } from '../components/FullPreloader';
 import { ModalSetPairValues } from '../components/ModalSetPairValues';
+import { SmallPreloader } from '../components/SmallPreloader';
 
 const AllPair = (props) => {
   useEffect(() => {
@@ -23,7 +24,7 @@ const AllPair = (props) => {
   }
 
   return(
-    <>
+    <div className="container-values-pairs">
       {props.isLoadAllValue && <FullPreloader /> }
       {props.isValuesPairsModal && <ModalSetPairValues
         valuesList={props.valuesList}
@@ -34,19 +35,26 @@ const AllPair = (props) => {
         saveValuesPair={props.saveValuesPair}
       />}
 
-      <h1>ALL PAIRS</h1>
-      <button onClick={handleEditValutesPairs}>Edit</button>
-      {props.valuesPairs.map(el => {
-        return(
-          <div key={el.id}>
-            <div>{el.pair[0].code} / {el.pair[1].code}</div>
-            <div>
-              {props.quotationPairs[el.id] ? props.quotationPairs[el.id] : 'Loading...'}
+      <div className="container-btn-edit-value-pair">
+        <button className="btn" onClick={handleEditValutesPairs}>
+          Редактировать список валютных пар
+        </button>
+      </div>
+
+      <div className="values-pairs-list">
+        {props.valuesPairs.map(el => {
+          return(
+            <div className="value-pair" key={el.id}>
+              <div>{el.pair[0].code} / {el.pair[1].code}</div>
+              <div className="titles">{el.pair[0].title} / {el.pair[1].title}</div>
+              <div>
+                {props.quotationPairs[el.id] ? props.quotationPairs[el.id] : <SmallPreloader />}
+              </div>
             </div>
-          </div>
-        )
-      })}
-    </>
+          )
+        })}
+      </div>
+    </div>
   )
 }
 
