@@ -6,10 +6,6 @@ import { store } from './redux/store';
 
 
 function AppContainer() {
-  // let values = [];
-  // useEffect(() => {
-    
-  // }, []);
 
   return (
     <Provider store={store}>

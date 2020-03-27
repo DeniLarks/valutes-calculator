@@ -13,13 +13,11 @@ export const App = () => {
       
       <main className="main">
         <div className="main__inner container">
-          {/* <div className="main__inner"> */}
-            <Switch>
-              <Route path="/" exact><ConverterContainer /></Route>
-              <Route path="/pairs"><AllPairContainer /></Route>
-            </Switch>
+          <Switch>
+            <Route path="/" exact><ConverterContainer /></Route>
+            <Route path="/pairs"><AllPairContainer /></Route>
+          </Switch>
           </div>
-        {/* </div> */}
       </main>
 
       <footer className="footer">
